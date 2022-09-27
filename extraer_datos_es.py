@@ -1,15 +1,18 @@
-# TRANSFORMAR DATOS: LEYENDO CADENAS PARA EXTRAER INFORMACIÓN, TRANSFORMAR DE CADENA A NÚMERO PARA POSTERIOR ANÁLISIS 
+#Extraer datos desde raw data - Buscar cadenas - transformar en dato estructurado y correcto datatype 
+#TRANSFORMAR DATOS
 #importando archivo CSV y leyendo cada FILA
 # los datos de una fila están separados por coma para indicar las columnas
 
 
 # --- abriendo el csv - leyendo línea a línea - separando columnas por la coma - imprimiendo el valor de la columna
 
+
+#----PASO 1----
+#--Abrir el archivo en csv, leer fila a fila, convertir cada fila en su columna correspondiente, extraer columna de interés
 import os
-
-
 os.chdir ('C:\\Users\\carpeta')  #es importante estar en la carpeta correspondiente, teniendo el programa y el csv en el mismo lugar
-nombre_archivo='mibebito.csv'
+
+nombre_archivo='info_inmuebles.csv'
 lista_de_observaciones=[]
 
 with open(nombre_archivo,'r') as archivo:
@@ -35,9 +38,13 @@ print(lista_de_observaciones)  #acá las observaciones se pasaron a una lista (e
 #--- con el código anterior se leen los datos de la columna 'observaciones'
 #--- procesamiento de datos, y guardado en una lista (1 sola columna):
 
+#-----SEGUNDO PASO---
+# Teniendo la columna de raw data (observaciones), buscaremos las palabras que nos interesan
+# Convertiremos monoambiente =1; dos ambientes = 2, 3 ambientes = 3, etc.
+# Como es ultra raw data, los typos o abreviaciones son esperados. Con la librrería regex creamos diferentes combinaciones de búsqueda:
 import re
 
-columna_de_ambientes=[]    #lista donde se pondrá la cantidad de ambientes
+columna_de_ambientes=[]    #lista donde se pondrá la cantidad de ambientes en forma de número
 
 for inmueble in lista_de_observaciones:
 
@@ -68,7 +75,8 @@ for inmueble in lista_de_observaciones:
                                              #'Sin datos' provoca que la celda quede como cadena. Poniendo 'none' la celda queda vacía de dato. Según cómo lo tengan que procesar. Ojo con poner '0' (va a tirar errores muy feos)
 print(columna_de_ambientes)  ##<--- en esta lista está la cantidad de ambientes ya clasificada
 
-#---- agregando la columna al csv con pandas
+#---- TERCER PASO
+# --- Guardar los datos generados en una nueva columna:
 
 import pandas as pd
 
@@ -77,7 +85,7 @@ data_frame=pd.DataFrame(datos)
 # print(data_frame)    para verlo
 data_frame=data_frame.assign(Ambientes=columna_de_ambientes)  #crea una nueva columna y pone los datos de la lista
 
-data_frame.to_csv('datos con ambientesA.csv', sep=',')  #nuevo archivo con la nueva columna
+data_frame.to_csv('info_inmuebles_con_dato_numerico.csv', sep=',')  #nuevo archivo con la nueva columna
 
 
 
