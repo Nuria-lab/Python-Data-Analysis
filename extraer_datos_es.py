@@ -1,4 +1,5 @@
-# importando archivo CSV y leyendo cada FILA
+# TRANSFORMAR DATOS: LEYENDO CADENAS PARA EXTRAER INFORMACIÓN, TRANSFORMAR DE CADENA A NÚMERO PARA POSTERIOR ANÁLISIS 
+#importando archivo CSV y leyendo cada FILA
 # los datos de una fila están separados por coma para indicar las columnas
 
 
@@ -7,7 +8,7 @@
 import os
 
 
-os.chdir ('C:\\Users\\nuria\\Desktop\\Mi bebito fiu fiu')  #esto ponelo para trabajar dentro de la carpeta del data frame
+os.chdir ('C:\\Users\\carpeta')  #es importante estar en la carpeta correspondiente, teniendo el programa y el csv en el mismo lugar
 nombre_archivo='mibebito.csv'
 lista_de_observaciones=[]
 
